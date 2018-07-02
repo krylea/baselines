@@ -93,7 +93,7 @@ def train(env, nb_epochs, nb_epoch_cycles, render_eval, reward_scale, render, pa
                     if done:
                         # Episode done.
                         epoch_episode_rewards.append(episode_reward)
-                        episode_rewards_history.append(episode_reward)
+                        episode_rewards_history.append(episode_reward/episode_step)
                         epoch_episode_steps.append(episode_step)
                         episode_reward = 0.
                         episode_step = 0
@@ -176,6 +176,10 @@ def train(env, nb_epochs, nb_epoch_cycles, render_eval, reward_scale, render, pa
             # Total statistics.
             combined_stats['total/epochs'] = epoch + 1
             combined_stats['total/steps'] = t
+
+            with open("test_out.csv") as outfile:
+                for x in episode_rewards_history:
+                    outfile.write(str(x)+",")
 
             for key in sorted(combined_stats.keys()):
                 logger.record_tabular(key, combined_stats[key])
