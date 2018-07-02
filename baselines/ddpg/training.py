@@ -177,7 +177,7 @@ def train(env, nb_epochs, nb_epoch_cycles, render_eval, reward_scale, render, pa
             combined_stats['total/epochs'] = epoch + 1
             combined_stats['total/steps'] = t
 
-            with open("test_out.csv") as outfile:
+            with open("test_out.csv", 'w') as outfile:
                 for x in episode_rewards_history:
                     outfile.write(str(x)+",")
 
